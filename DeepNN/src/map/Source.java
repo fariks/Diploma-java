@@ -9,6 +9,7 @@ import util.Size2D;
  */
 public class Source implements Forward
 {
+	//test
 	@Override
 	public float[] getOutput()
 	{
