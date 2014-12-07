@@ -11,7 +11,12 @@ import java.util.List;
  */
 public class Sink implements FeatureMap
 {
-	@Override
+    @Override
+    public Size2D getWeightsSize() {
+        return null;
+    }
+
+    @Override
 	public float[] getError()
 	{
 		return new float[0];

@@ -16,6 +16,8 @@ public class CPMap extends CMap {
 
     private float[] pool_output;
 
+    private float[] pool_error;
+
     private int[] pool_input_indexes;
 
     public CPMap(Size2D map_size,
@@ -27,6 +29,7 @@ public class CPMap extends CMap {
         super(weights, bias, weights_size, map_size, activation);
         this.pool_size = new Size2D(map_size.x / pool_window_size.x, map_size.y / pool_window_size.y);
         this.pool_output = new float[pool_size.size()];
+        this.pool_error = new float[pool_size.size()];
         this.pool_input_indexes = new int[pool_size.size()];
     }
 
@@ -48,6 +51,34 @@ public class CPMap extends CMap {
                 }
                 pool_output[kx * pool_size.y + ky] = max;
                 pool_input_indexes[kx * pool_size.y + ky] = index;
+            }
+        }
+    }
+
+    @Override
+    public void computeError(List<Backward> nextMaps) {
+        for (Backward nextMap : nextMaps) {
+            Size2D out_size = nextMap.getSize();
+            Size2D out_weights_size = nextMap.getWeightsSize();
+            float[] out_error = nextMap.getError();
+            float[] out_weights = nextMap.getWeights();
+            for (int xout = 0; xout < out_size.x; xout++) {
+                for (int yout = 0; yout < out_size.y; yout++) {
+                    for (int xk = 0; xk < out_weights_size.x; xk++) {
+                        for (int yk = 0; yk < out_weights_size.y; yk++) {
+                            pool_error[(xk + xout) * pool_size.y + (yk + yout)] +=
+                                    out_error[xout * out_size.y + yout] * out_weights[xk * out_weights_size.y + yk];
+                        }
+                    }
+                }
+            }
+        }
+
+        for (int xout = 0; xout < pool_size.x; xout++) {
+            for (int yout = 0; yout < pool_size.y; yout++) {
+                map_error[pool_input_indexes[xout * pool_size.y + yout]] =
+                        pool_error[xout * pool_size.y + yout] *
+                                activation.getDerivative(map_input[pool_input_indexes[xout * pool_size.y + yout]]);
             }
         }
     }

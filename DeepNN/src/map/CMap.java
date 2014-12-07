@@ -16,7 +16,7 @@ public class CMap implements FeatureMap
 
     protected float[] map_output;
 
-    protected float[] error;
+    protected float[] map_error;
 
     protected float[] weights;
 
@@ -36,7 +36,7 @@ public class CMap implements FeatureMap
         this.activation = activation;
         this.map_output = new float[map_size.size()];
         this.map_input = new float[map_size.size()];
-        this.error = new float[map_size.size()];
+        this.map_error = new float[map_size.size()];
     }
 
     @Override
@@ -45,7 +45,12 @@ public class CMap implements FeatureMap
 		return map_size;
 	}
 
-	@Override
+    @Override
+    public Size2D getWeightsSize() {
+        return weights_size;
+    }
+
+    @Override
 	public void computeOutput(List<Forward> prevMaps)
 	{
         for (int ix = 0; ix < map_size.x; ix++) {
@@ -71,7 +76,6 @@ public class CMap implements FeatureMap
 	@Override
 	public void computeError(List<Backward> nextMaps)
 	{
-
 	}
 
 	@Override
@@ -89,7 +93,7 @@ public class CMap implements FeatureMap
 	@Override
 	public float[] getError()
 	{
-		return error;
+		return map_error;
 	}
 
 	@Override
