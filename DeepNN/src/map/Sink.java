@@ -2,6 +2,8 @@ package map;
 
 import util.Size2D;
 
+import java.util.List;
+
 /**
  * @author: alsm0813
  * Date: 01.12.2014
@@ -33,19 +35,17 @@ public class Sink implements FeatureMap
 		return null;
 	}
 
-	@Override
-	public void computeOutput()
-	{
+    @Override
+    public void computeOutput(List<Forward> prevMaps) {
 
-	}
+    }
 
-	@Override
-	public void computeError()
-	{
+    @Override
+    public void computeError(List<Backward> prevMaps) {
 
-	}
+    }
 
-	@Override
+    @Override
 	public void updateWeights()
 	{
 

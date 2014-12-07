@@ -1,5 +1,7 @@
 package map;
 
+import java.util.List;
+
 /**
  * @author: alsm0813
  * Date: 01.12.2014
@@ -7,9 +9,9 @@ package map;
  */
 public interface Trainable
 {
-	void computeOutput();
+	void computeOutput(List<Forward> prevMaps);
 
-	void computeError();
+	void computeError(List<Backward> prevMaps);
 
 	void updateWeights();
 }
