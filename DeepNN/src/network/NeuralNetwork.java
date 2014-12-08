@@ -9,7 +9,7 @@ import java.util.List;
  */
 public class NeuralNetwork {
 
-    private List<Layer> layers;
+ /*   private List<Layer> layers;
 
     public void feedForward() {
         for (Layer layer : layers) {
@@ -29,5 +29,5 @@ public class NeuralNetwork {
 
     public void updateWeights() {
 
-    }
+    }   */
 }

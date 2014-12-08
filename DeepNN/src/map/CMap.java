@@ -1,6 +1,7 @@
 package map;
 
 import activation.Activation;
+import activation.Sigmoid;
 import util.Size2D;
 
 import java.util.List;
@@ -28,12 +29,12 @@ public class CMap implements FeatureMap
 
     protected final Activation activation;
 
-    public CMap(float[] weights, float bias, Size2D weights_size, Size2D map_size, Activation activation) {
+    public CMap(float[] weights, float bias, Size2D weights_size, Size2D map_size) {
         this.weights = weights;
         this.bias = bias;
         this.map_size = map_size;
         this.weights_size = weights_size;
-        this.activation = activation;
+        this.activation = new Sigmoid();
         this.map_output = new float[map_size.size()];
         this.map_input = new float[map_size.size()];
         this.map_error = new float[map_size.size()];

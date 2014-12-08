@@ -24,9 +24,8 @@ public class CPMap extends CMap {
                  Size2D weights_size,
                  Size2D pool_window_size,
                  float[] weights,
-                 float bias,
-                 Activation activation) {
-        super(weights, bias, weights_size, map_size, activation);
+                 float bias) {
+        super(weights, bias, weights_size, map_size);
         this.pool_size = new Size2D(map_size.x / pool_window_size.x, map_size.y / pool_window_size.y);
         this.pool_output = new float[pool_size.size()];
         this.pool_error = new float[pool_size.size()];
