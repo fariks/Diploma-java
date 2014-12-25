@@ -11,5 +11,5 @@ public interface Forward
 {
 	float[] getOutput();
 
-	Size2D getSize();
+	Size2D getOutputSize();
 }

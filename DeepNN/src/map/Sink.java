@@ -29,18 +29,24 @@ public class Sink implements FeatureMap
 	}
 
 	@Override
+	public Size2D getInputSize()
+	{
+		return null;
+	}
+
+	@Override
 	public float[] getOutput()
 	{
 		return new float[0];
 	}
 
 	@Override
-	public Size2D getSize()
+	public Size2D getOutputSize()
 	{
 		return null;
 	}
 
-    @Override
+	@Override
     public void computeOutput(List<Forward> prevMaps) {
 
     }

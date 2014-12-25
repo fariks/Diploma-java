@@ -13,7 +13,7 @@ public interface Backward
 
 	float[] getWeights();
 
-	Size2D getSize();
+	Size2D getInputSize();
 
 	Size2D getWeightsSize();
 }

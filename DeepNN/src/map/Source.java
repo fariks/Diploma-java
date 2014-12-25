@@ -16,7 +16,7 @@ public class Source implements Forward
 	}
 
 	@Override
-	public Size2D getSize()
+	public Size2D getOutputSize()
 	{
 		return null;
 	}

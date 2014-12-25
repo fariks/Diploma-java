@@ -41,12 +41,6 @@ public class CMap implements FeatureMap
     }
 
     @Override
-	public Size2D getSize()
-	{
-		return map_size;
-	}
-
-    @Override
     public Size2D getWeightsSize() {
         return weights_size;
     }
@@ -59,7 +53,7 @@ public class CMap implements FeatureMap
                 float sum = 0.f;
                 for (Forward prevMap : prevMaps) {
                     float[] source = prevMap.getOutput();
-                    Size2D source_size = prevMap.getSize();
+                    Size2D source_size = prevMap.getOutputSize();
                     for (int jx = 0; jx < weights_size.x; jx++) {
                         for (int jy = 0; jy < weights_size.y; jy++) {
                             sum += weights[jx * weights_size.y + jy] *
@@ -91,7 +85,13 @@ public class CMap implements FeatureMap
 		return map_output;
 	}
 
-	@Override
+    @Override
+    public Size2D getOutputSize()
+    {
+        return map_size;
+    }
+
+    @Override
 	public float[] getError()
 	{
 		return map_error;
@@ -102,4 +102,10 @@ public class CMap implements FeatureMap
 	{
 		return weights;
 	}
+
+    @Override
+    public Size2D getInputSize()
+    {
+        return map_size;
+    }
 }
