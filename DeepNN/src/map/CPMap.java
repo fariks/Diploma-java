@@ -1,6 +1,5 @@
 package map;
 
-import activation.Activation;
 import util.Size2D;
 
 import java.util.List;
@@ -13,13 +12,13 @@ import java.util.List;
 public class CPMap extends CMap
 {
 
-	private final Size2D pool_size;
+	protected final Size2D pool_size;
 
-	private float[] pool_output;
+    protected float[] pool_output;
 
-	private float[] pool_error;
+    protected float[] pool_error;
 
-	private int[] pool_input_indexes;
+    protected int[] pool_input_indexes;
 
 	public CPMap(
 		float[] weights,
@@ -112,7 +111,23 @@ public class CPMap extends CMap
 		return pool_size;
 	}
 
-	@Override
+    public int[] getPool_input_indexes() {
+        return pool_input_indexes;
+    }
+
+    public void setPool_input_indexes(int[] pool_input_indexes) {
+        this.pool_input_indexes = pool_input_indexes;
+    }
+
+    public float[] getPool_error() {
+        return pool_error;
+    }
+
+    public void setPool_error(float[] pool_error) {
+        this.pool_error = pool_error;
+    }
+
+    @Override
 	public Size2D getInputSize()
 	{
 		return map_size;

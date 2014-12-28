@@ -13,5 +13,5 @@ public interface Trainable
 
 	void computeError(List<Backward> prevMaps);
 
-	void updateWeights();
+	void updateWeights(List<Forward> prevMaps);
 }

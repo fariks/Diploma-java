@@ -9,15 +9,24 @@ import util.Size2D;
  */
 public class Source implements Forward
 {
-	@Override
+    private float[] output;
+
+    private Size2D size;
+
+    public Source(float[] output, Size2D size) {
+        this.output = output;
+        this.size = size;
+    }
+
+    @Override
 	public float[] getOutput()
 	{
-		return new float[0];
+		return output;
 	}
 
 	@Override
 	public Size2D getOutputSize()
 	{
-		return null;
+		return size;
 	}
 }

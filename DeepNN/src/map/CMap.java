@@ -29,6 +29,8 @@ public class CMap implements FeatureMap
 
     protected final Activation activation;
 
+    protected final float LEARNING_RATE = 0.05f;
+
     public CMap(float[] weights, float bias, Size2D weights_size, Size2D map_size) {
         this.weights = weights;
         this.bias = bias;
@@ -74,9 +76,34 @@ public class CMap implements FeatureMap
 	}
 
 	@Override
-	public void updateWeights()
+	public void updateWeights(List<Forward> prevMaps)
 	{
+        for (int iw = 0; iw < weights_size.x; iw++)
+        {
+            for (int jw = 0; jw < weights_size.y; jw++)
+            {
+                for (int im = 0; im < map_size.x; im++)
+                {
+                    for (int jm = 0; jm < map_size.y; jm++)
+                    {
+                        float m_sum = 0.f;
+                        for (Forward prevMap : prevMaps)
+                        {
+                           m_sum += prevMap.getOutput()[(im + iw) * prevMap.getOutputSize().y + (jm + jw)];
+                        }
+                        weights[iw * weights_size.y + jw] += LEARNING_RATE * map_error[im * map_size.y + jm] * m_sum;
+                    }
+                }
+            }
+        }
 
+        for (int im = 0; im < map_size.x; im++)
+        {
+            for (int jm = 0; jm < map_size.y; jm++)
+            {
+                bias += LEARNING_RATE * map_error[im * map_size.y + jm];
+            }
+        }
 	}
 
 	@Override
@@ -97,7 +124,15 @@ public class CMap implements FeatureMap
 		return map_error;
 	}
 
-	@Override
+    public float getBias() {
+        return bias;
+    }
+
+    public void setError(float[] map_error) {
+        this.map_error = map_error;
+    }
+
+    @Override
 	public float[] getWeights()
 	{
 		return weights;
