@@ -2,6 +2,7 @@ package map;
 
 import util.Size2D;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -15,16 +16,18 @@ public class Sink extends CPMap
         super(weights, bias, weights_size, map_size, pool_window_size);
     }
 
-    public void computeError(float[] out_error, float[] out_weights)
+    public void computeError(float[] out_error, List<float[]> out_weights)
     {
-        for (int i = 0; i < pool_error.x; i++)
+        Arrays.fill(pool_error, 0);
+        for (int i = 0; i < out_error.length; i++)
         {
-            float sum = 0.f;
-            for (int j = 0; j < out_sigma_size; j++)
+            for (int iw = 0; iw < pool_size.x; iw++)
             {
-                sum += out_sigma[j] * w[j * in_sigma_size + i];
+                for (int jw = 0; jw < pool_size.y; jw++)
+                {
+                    pool_error[iw * pool_size.y + jw] += out_error[i] * out_weights.get(i)[iw * pool_size.y + jw];
+                }
             }
-            in_sigma[i] = sum;
         }
 
         //todo
